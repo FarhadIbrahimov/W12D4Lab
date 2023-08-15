@@ -13,27 +13,13 @@ async function index(req, res) {
 }
 
 async function create(req, res) {
-  // console.log(req.body);
-
-  try {
-    const newFlight = await Flights.create(req.body);
-  } catch (err) {
-    console.log("mongoCreateError: ", err);
-  }
-  res.redirect("/flights");
-}
-
-function newFlight(req, res) {
-  res.render("New");
-}
-
-async function create(req, res) {
   const { airline, flightNo, departs } = req.body;
   if (!airline || !flightNo || !departs) {
     res.status(401).send("Please provide Credentials");
   } else {
     try {
       const newFlight = await Flights.create(req.body);
+      console.log("CREATE", newFlight);
       res.redirect(`/flights/${newFlight._id}`);
     } catch (error) {
       console.log("Failed to create a new flight", error);
@@ -80,8 +66,18 @@ async function show(req, res) {
 }
 
 function newFlight(req, res) {
-  res.render("Show");
+  res.render("New");
 }
+
+// async function destroy(req, res) {
+//   console.log("DESTROY", req.params.id);
+//   try {
+//     await Flights.findByIdAndDelete(req.params.id);
+//     res.redirect("/flights");
+//   } catch (error) {
+//     console.log("mongo error: ", error);
+//   }
+// }
 
 module.exports = {
   index,
