@@ -43,10 +43,6 @@ export default function Show({ SingleFlightData }) {
 }
 ```
 
-# Flight Details Application
-
-This repository contains code for a web application that displays flight details using React components and a Node.js backend.
-
 ## Controller Functions
 
 The controller file (`flightController.js`) includes several functions that handle different aspects of the application's functionality.
@@ -61,7 +57,7 @@ The `create` function handles the creation of new flights. It receives data from
 
 ### `newFlight`
 
-The `newFlight` function renders a "New" view that allows users to input details for creating a new flight. It ensures that the required credentials (`airline`, `flightNo`, and `departs`) are provided before rendering the input form. If the required fields are not provided, it sends a 401 status and a message indicating that credentials are missing.
+The `newFlight` function renders a "New" view that allows users to input details for creating a new flight. It ensures that the required credentials (`airline`, `flightNo`, and `departs`) are provided before rendering the input form. If the required fields are not provided, it sends a 401 (_Unauthorized response status code indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource_) status and a message indicating that credentials are missing.
 
 ### `update`
 
@@ -73,21 +69,21 @@ The `seed` function is used for populating the database with sample flight data.
 
 ### `show`
 
-The `show` function retrieves and displays detailed flight information. It uses the `Flights.findById()` method to fetch flight details from the database based on the provided `id` parameter. If the flight data is
+The `show` function retrieves and displays detailed flight information. It uses the `Flights.findById()` method to fetch flight details from the database based on the provided `id` parameter. If the flight data is found, it renders the "Show" view with the flight details. If the flight data is not found, it sends a 404 status and a "Flight not found" message.
 
 ## Adding the "Show" Route
 
-To enable users to view detailed flight information, you'll need to add a "show" route that corresponds to the `show` function in the controller. Follow these steps to add the route:
+To enable users to view detailed flight information, added a "show" route that corresponds to the `show` function in the controller. Followed these steps to add the route:
 
-1. **Open `routes.js`:** Navigate to the `routes.js` file in your project. This file contains the routing configuration for your Express application.
+1. **`flightRoutes.js`** file contains the routing configuration for my Express application.
 
-2. **Import the Controller:** At the top of the `routes.js` file, import the `flightController` module that contains the controller functions.
+2. **Imported the Controller:** At the top of the `routes.js` file, imported the `flightController` module that contains the controller functions.
 
    ```javascript
    const flightController = require("../controllers/flightController");
    ```
 
-\*\*Add the Show Route: Below the existing routes, add a new route that corresponds to the show function in the controller. This route should handle requests with a flight ID parameter (e.g., /flights/:id).
+3. **Added the Show Route:** Below the existing routes, added a new route that corresponds to the show function in the controller. This route handles requests with a flight ID parameter (e.g., /flights/:id).
 
 ```javascript
 // Show
