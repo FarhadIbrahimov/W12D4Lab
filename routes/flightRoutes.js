@@ -12,7 +12,7 @@ router.get("/", flightController.index);
 router.get("/new", flightController.new);
 
 //Delete
-// router.delete("/:id", flightController.destroy);
+router.delete("/:id", flightController.destroy);
 
 // Update
 router.put("/:id", flightController.update);

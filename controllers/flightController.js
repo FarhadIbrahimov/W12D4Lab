@@ -52,7 +52,7 @@ async function seed(req, res) {
 
 async function show(req, res) {
   try {
-    const SingleFlightData = await Flights.findById(req.params.id);
+    let SingleFlightData = await Flights.findById(req.params.id);
     console.log(SingleFlightData);
     if (SingleFlightData) {
       res.render("Show", { SingleFlightData });
@@ -69,15 +69,15 @@ function newFlight(req, res) {
   res.render("New");
 }
 
-// async function destroy(req, res) {
-//   console.log("DESTROY", req.params.id);
-//   try {
-//     await Flights.findByIdAndDelete(req.params.id);
-//     res.redirect("/flights");
-//   } catch (error) {
-//     console.log("mongo error: ", error);
-//   }
-// }
+async function destroy(req, res) {
+  console.log("DESTROY", req.params.id);
+  try {
+    await Flights.findByIdAndDelete(req.params.id);
+    res.redirect("/flights");
+  } catch (error) {
+    console.log("mongo error: ", error);
+  }
+}
 
 module.exports = {
   index,
@@ -86,4 +86,5 @@ module.exports = {
   update,
   create,
   show,
+  destroy,
 };
