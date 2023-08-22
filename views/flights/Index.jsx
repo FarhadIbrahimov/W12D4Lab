@@ -15,7 +15,7 @@ function Index({ flights }) {
             <th>Airline</th>
             <th>Flight #</th>
             <th>Departs</th>
-            <th>Details</th>
+            <th>Info</th>
           </tr>
           {flights.map((flight) => (
             <tr key={flight._id}>
@@ -25,7 +25,7 @@ function Index({ flights }) {
               <td>{flight.departs.toLocaleDateString()}</td>
               <td>
                 <a href={`/flights/${flight._id}`}>
-                  <button>Info</button>
+                  <button>Details</button>
                 </a>
               </td>
             </tr>
