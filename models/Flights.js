@@ -1,46 +1,42 @@
-const mongoose = require("mongoose");
-const { destinationSchema } = require("./Destination");
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
 
-const flightSchema = new Schema({
-  airline: {
-    type: String,
-    require: true,
-    enum: {
-      values: [
-        "American",
-        "Southwest",
-        "United",
-        "Delta",
-        "Frontier",
-        "JetBlue",
-      ],
-      values: ["American", "Southwest", "United"],
-      message: "{VALUE} is not supported",
+const Schema = mongoose.Schema
+
+const destinationSchema = new Schema({
+    airport: {
+        type: String,
+        enum: ['AUS', 'DAL', 'LAX', 'SAN', 'SEA']
     },
-  },
-  flightNo: {
-    type: Number,
-    require: true,
-  },
-  departs: {
-    type: Date,
-    require: true,
-    min: "2023-12-30",
-    max: "2025-12-30",
-  },
-  airport: {
-    type: String,
-    required: true,
-    enum: {
-      values: ["AUS", "DAL", "LAZ", "SAN", "SAN", "SEA"],
-      message: "{VALUE} is not supported",
+    arrival: {
+        type: Date
+    }
+})
+
+const flightsSchema = new Schema({
+    airline: {
+        type: String,
+        enum: ['American', 'Southwest', 'United']
     },
-  },
+    flightNo: {
+        type: Number,
+        required: true,
+        min: 10,
+        max: 9999
+    },
+    departs: {
+        type: Date,
+        default: new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+    },
+    airport: {
+        type: String,
+        enum: ['AUS', 'DAL', 'LAX', 'SAN', 'SEA'],
+        default: 'SAN'
+    },
+    destinations: {
+        type: [destinationSchema]
+    }
+})
 
-  destinations: [destinationSchema],
-});
+const Flights = mongoose.model('flights', flightsSchema)
 
-const Flights = mongoose.model("flights", flightSchema);
-
-module.exports = Flights;
+module.exports = Flights

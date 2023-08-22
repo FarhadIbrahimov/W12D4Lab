@@ -1,12 +1,16 @@
 const express = require("express");
+
 require("dotenv").config();
+
 const mongoConfig = require("./config");
+
 const app = express();
-const PORT = 3000;
+
+const PORT = 5000;
 
 mongoConfig();
+const flightsRoutes = require("./routes/flightsRoutes");
 
-const flightRoutes = require("./routes/flightRoutes");
 const jsxEngine = require("jsx-view-engine");
 
 const methodOverride = require("method-override");
@@ -16,12 +20,16 @@ app.engine("jsx", jsxEngine());
 
 app.use(methodOverride("_method"));
 
+app.use(express.static("public"));
+
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/flights", flightRoutes);
+// routes
+app.use("/flights", flightsRoutes);
 
+// "root" route
 app.get("/", (req, res) => {
-  res.send("homepage");
+  res.send("Hello World!");
 });
 
 app.listen(PORT, () => {
